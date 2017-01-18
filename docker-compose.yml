@@ -1,0 +1,24 @@
+version: '2'
+services:
+  gogs:
+    image: gogs/gogs
+    volumes:
+      - gogs_data:/data
+    ports:
+      - 3080:3000
+    links:
+      - mysql:mysql
+  mysql:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysqlrootpassword
+      - MYSQL_DATABASE=gogs
+      - MYSQL_USER=gogs
+      - MYSQL_PASSWORD=gogspassword
+    volumes:
+     - mysql_data:/var/lib/mysql
+volumes:
+  mysql_data:
+    driver: local
+  gogs_data:
+    driver: local
